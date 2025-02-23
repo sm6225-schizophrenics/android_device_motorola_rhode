@@ -55,6 +55,9 @@ BOARD_API_LEVEL := 30
 BOARD_SHIPPING_API_LEVEL := 30
 PRODUCT_SHIPPING_API_LEVEL := 31
 
+# Signing
+$(call inherit-product, vendor/aicp/signing/keys/keys.mk)
+
 # Vendor ramdisk
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/fstab.qcom_ramdisk:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.qcom
