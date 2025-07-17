@@ -1,56 +1,6 @@
-on mmi-priority
-    # Only high priority MMI DLKMs loaded here
-    # For instance, sensor_class referenced from several DLKMs
-    # and needs to load first. Touchscreen might need extra time
-    # to perform firmware update if necessary
-    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules mmi_annotate mmi_info wl2866d mmi_sys_temp
-
-on fs
-    # Majority of MMI DLKMs should be in this group
-    insmod /vendor/lib/modules/adapter_class.ko
-    insmod /vendor/lib/modules/mmi_charger.ko
-    insmod /vendor/lib/modules/mmi_discrete_charger_class.ko
-    insmod /vendor/lib/modules/mmi_qc3p_wt6670f.ko
-    insmod /vendor/lib/modules/sgm4154x_charger.ko
-    insmod /vendor/lib/modules/bq2589x_charger.ko
-    insmod /vendor/lib/modules/cw2217b_fg_mmi.ko
-    insmod /vendor/lib/modules/sm5602_fg_mmi.ko
-    insmod /vendor/lib/modules/mmi_discrete_charger.ko
-    insmod /vendor/lib/modules/qpnp_adaptive_charge.ko
-    insmod /vendor/lib/modules/bq2597x_mmi_iio.ko
-    insmod /vendor/lib/modules/tcpc_class.ko
-    insmod /vendor/lib/modules/tcpc_sgm7220.ko
-
-    insmod /vendor/lib/modules/rt_pd_manager.ko
-    insmod /vendor/lib/modules/mmi_relay.ko
-    insmod /vendor/lib/modules/sensors_class.ko
-    insmod /vendor/lib/modules/touchscreen_mmi.ko
-    insmod /vendor/lib/modules/goodix_brl_mmi.ko
-    insmod /vendor/lib/modules/focaltech_v3.ko
-    insmod /vendor/lib/modules/synaptics_v2_mmi.ko
-    insmod /vendor/lib/modules/ldo_vibrator_mmi.ko
-    insmod /vendor/lib/modules/mmi_discrete_turbo_charger.ko
-
-    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules audio_snd_soc_aw882xx aw9610x
-
-on charger
-    insmod /vendor/lib/modules/cw2217b_fg_mmi.ko
-    insmod /vendor/lib/modules/sm5602_fg_mmi.ko
-    insmod /vendor/lib/modules/bq2597x_mmi_iio.ko
-    insmod /vendor/lib/modules/mmi_charger.ko
-    insmod /vendor/lib/modules/adapter_class.ko
-    insmod /vendor/lib/modules/mmi_discrete_charger_class.ko
-    insmod /vendor/lib/modules/mmi_discrete_charger.ko
-    insmod /vendor/lib/modules/mmi_qc3p_wt6670f.ko
-    insmod /vendor/lib/modules/sgm4154x_charger.ko
-    insmod /vendor/lib/modules/bq2589x_charger.ko
-    insmod /vendor/lib/modules/tcpc_class.ko
-    insmod /vendor/lib/modules/tcpc_sgm7220.ko
-    insmod /vendor/lib/modules/mmi_discrete_turbo_charger.ko
-
 on post-fs-data
     mkdir /data/vendor/focaltech 0770 system system
-
+    
 service capsense_reset /system/vendor/bin/capsense_reset
     class core
     user system

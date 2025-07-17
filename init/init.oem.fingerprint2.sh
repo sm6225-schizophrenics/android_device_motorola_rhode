@@ -20,29 +20,15 @@ function log {
 PROP_GKI_PATH=ro.vendor.mot.gki.path
 GKI_PATH=$(getprop $PROP_GKI_PATH)
 
-# for new projects, only need to config varible vendor_list,kernel_so_list,kernel_so_name_list,hal_list
+# for new projects, only need to config varible vendor_list,hal_list
 # vendor_list: the array contains the sensor name, it will be used for system properties.
-# kernel_so_list: the array contains the kernel so's absolute path. It will be used at insmod.
-# kernel_so_name_list: the array contains the kernel so's name. It will be used at rmmod.
 # hal_list: the array contains the hal service name.
 #
 # note: all arrays should have the same size.
 vendor_list=('egis' 'focal')
-kernel_so_list=("/vendor/lib/modules/$GKI_PATH/rbs_fps_mmi.ko" "/vendor/lib/modules/$GKI_PATH/focal_fps_mmi.ko")
-kernel_so_name_list=("rbs_fps_mmi.ko" "focal_fps_mmi.ko")
 hal_list=('ets_hal' 'focal_hal')
 last_vendor_index=`expr ${#vendor_list[@]} - 1`
 vendor_list_size=${#vendor_list[@]}
-
-if [ $vendor_list_size != ${#kernel_so_list[@]} ]; then
-    log "error, vendor_list.size is not equal to kernel_so_list"
-    return 255
-fi
-
-if [ $vendor_list_size != ${#kernel_so_name_list[@]} ]; then
-    log "error, vendor_list.size is not equal to kernel_so_name_list"
-    return 255
-fi
 
 if [ $vendor_list_size != ${#hal_list[@]} ]; then
     log "error, vendor_list.size is not equal to hal_list"
@@ -89,7 +75,6 @@ function start_hal_service(){
     setprop $prop_fps_status $FPS_STATUS_NONE
     setprop $prop_fps_ident $FPS_STATUS_NONE
 
-    insmod ${kernel_so_list[$1]}
     sleep 1
     setprop $prop_fps_ident ${vendor_list[$1]}
 
@@ -115,7 +100,6 @@ function start_hal_service(){
 
     log "start ${hal_list[$1]} hal failed, remove kernel so: ${kernel_so_name_list[$1]} "
     setprop ctl.stop ${hal_list[$1]}
-    rmmod ${kernel_so_name_list[$1]}
     sleep 0.1
     # if failed,return 255
     return 255
