@@ -19,7 +19,7 @@ ODM_MANIFEST_SKUS += b
 ODM_MANIFEST_B_FILES := $(DEVICE_PATH)/sku/manifest_b.xml
 
 # Kernel
-TARGET_KERNEL_CONFIG += vendor/ext_config/rhode-default.config
+TARGET_KERNEL_CONFIG := rhode_defconfig
 
 # Partitions
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 100663296
