@@ -23,6 +23,7 @@ namespace_imports = [
     'hardware/motorola',
     'vendor/motorola/sm6225-common',
     'vendor/qcom/common/system/perf',
+    'vendor/qcom/common/vendor/media/legacy',
     'vendor/qcom/common/vendor/perf',
 ]
 
