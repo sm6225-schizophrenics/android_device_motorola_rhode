@@ -19,9 +19,10 @@ from extract_utils.main import (
 )
 
 namespace_imports = [
+    'hardware/qcom/display',
     'hardware/motorola',
     'vendor/motorola/sm6225-common',
-    "vendor/qcom/common/vendor/perf"
+    'vendor/qcom/common/vendor/perf',
 ]
 
 lib_fixups: lib_fixups_user_type = {
